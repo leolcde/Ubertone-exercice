@@ -1,6 +1,9 @@
-<script setup>
-import { ref, onMounted } from 'vue' // Importation of vue and OnMounted
+<script setup lang="ts">
+import { ref, onMounted, VueElement } from 'vue' // Importation of vue and OnMounted
 import Plotly from 'plotly.js-dist' // Importation of plotly - for make some graph
+import NumberUtils from './utils/number'
+import Sin from './utils/sinusoid'
+import SinForm from './components/SinForm.vue'
 
 /* 
 ** Var for store frequency,
@@ -12,37 +15,13 @@ const amplitude = ref('')
 const plotContainer = ref(null)
 
 /*
-** Error handling
-*/
-function isNumeric(value)
-{
-  return /^-?\d*\.?\d+$/.test(value)
-}
-
-/*
-** Generates the x and y points of a sinusoid.
-*/
-function generateSinusoid(frequency, amplitude)
-{
-  const x = [] // Time axis (in seconds)
-  const y = [] // Amplitude axis (sinusoidal values)
-  const step = 0.1
-
-  for (let i = 0; i <= 100; i += step) {
-    x.push(i) // Add each time value
-    y.push(amplitude * Math.sin(frequency * i)) // Calculates the sinusoid and adds the value
-  }
-  return { x, y }
-}
-
-/*
 ** Manages form submit
 */
-function handleSubmit(event)
+function handleSubmit(event: Event)
 {
   event.preventDefault() // Prevents page reloading
 
-  if (!isNumeric(frequency.value) || !isNumeric(amplitude.value)) { // Error handling - verify if the value is not numeric
+  if (!NumberUtils.isNumeric(frequency.value) || !NumberUtils.isNumeric(amplitude.value)) { // Error handling - verify if the value is not numeric
     console.error('Fields must contain only numbers.')
     return
   }
@@ -52,7 +31,7 @@ function handleSubmit(event)
   const a = parseFloat(amplitude.value)
 
   // Generates the sinusoid data
-  const { x, y } = generateSinusoid(f, a)
+  const { x, y } = Sin.generateSinusoid(f, a)
 
   // Display the curve with plotly
   Plotly.newPlot(plotContainer.value, [{
@@ -70,7 +49,6 @@ function handleSubmit(event)
 <template>
   <!-- Display the title -->
   <h1 class="title">Enter your data !</h1>
-
   <!-- Dipslay the form input, for put the data -->
   <form class="form" @submit="handleSubmit">
     <input class="input" type="text" v-model="frequency" placeholder="Frequency" required inputmode="decimal" />
@@ -79,7 +57,6 @@ function handleSubmit(event)
     <!-- Diplay the button for submit -->
     <button type="submit">Create Sinusoide</button>
   </form>
-
   <!-- Display the sinusoid -->
   <div class="Sin" ref="plotContainer"></div>
 </template>
