@@ -9,7 +9,7 @@ A graphical interface displaying a sinusoid graphically, which can be configured
 
 ## Getting Started
 ```bash
-git clone git@github.com:leolcde/Ubertone-.git
+git clone git@github.com:leolcde/Ubertone-exercice.git
 cd ubertone_exercice
 
 npm install
