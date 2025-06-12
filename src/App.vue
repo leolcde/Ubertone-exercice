@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import { ref, onMounted, VueElement } from 'vue' // Importation of vue and OnMounted
-import Plotly from 'plotly.js-dist' // Importation of plotly - for make some graph
+import { ref, onMounted, VueElement } from 'vue' // Importation of vue and OnMounted.
+import Plotly from 'plotly.js-dist' // Importation of plotly - for make some graph.
 import NumberUtils from './utils/number'
 import Sin from './utils/sinusoid'
-import SinForm from './components/SinForm.vue'
 
 /* 
 ** Var for store frequency,
 ** amplitude and the reference
-** to the graph element
+** to the graph element.
 */
 const frequency = ref('')
 const amplitude = ref('')
 const plotContainer = ref(null)
 
 /*
-** Manages form submit
+** Processes the form submission to generate
+** and display a sinusoidal curve.
+** It prevents the page from reloading, checks
+** that the input values are numeric, converts them
+** to floats, generates the corresponding sinusoid data,
+** and displays the graph using Plotly.
 */
 function handleSubmit(event: Event)
 {
   event.preventDefault() // Prevents page reloading
 
-  if (!NumberUtils.isNumeric(frequency.value) || !NumberUtils.isNumeric(amplitude.value)) { // Error handling - verify if the value is not numeric
+  if (!NumberUtils.isNumeric(frequency.value) || !NumberUtils.isNumeric(amplitude.value)) { // Error handling - verify if the value is numeric or not.
     console.error('Fields must contain only numbers.')
     return
   }
@@ -49,6 +53,7 @@ function handleSubmit(event: Event)
 <template>
   <!-- Display the title -->
   <h1 class="title">Enter your data !</h1>
+
   <!-- Dipslay the form input, for put the data -->
   <form class="form" @submit="handleSubmit">
     <input class="input" type="text" v-model="frequency" placeholder="Frequency" required inputmode="decimal" />
@@ -57,6 +62,7 @@ function handleSubmit(event: Event)
     <!-- Diplay the button for submit -->
     <button type="submit">Create Sinusoide</button>
   </form>
+
   <!-- Display the sinusoid -->
   <div class="Sin" ref="plotContainer"></div>
 </template>
