@@ -1,22 +1,50 @@
 # Ubertone Exercice 
 
----
 
 ## Exercice statement
 A graphical interface displaying a sinusoid graphically, which can be configured in amplitude and frequency by the user.
 
----
 
 ## Getting Started
+
+### Linux:
 ```bash
 git clone git@github.com:leolcde/Ubertone-exercice.git
-cd ubertone_exercice
+cd Ubertone_exercice
+```
 
+Check your node and npm version.
+```bash
+node -v
+npm -v
+```
+If you do not have node or npm, install them.
+```bash
 npm install
 npm run dev
 ```
 
----
+### Apple & Windows:
+```bash
+git clone https://github.com/leolcde/Ubertone-exercice.git
+cd Ubertone-exercice
+```
+Check your node and npm version.
+```bash
+node -v
+npm -v
+```
+If you do not have node or npm, install them.
+```bash
+npm install
+npm run dev
+```
+
+## Build website with docker container
+```bash
+docker run -it -p 8080:8080 --rm --name dockerize-vuejs-app-1 vuejs-cookbook/dockerize-vuejs-app
+```
+
 
 ## Project Structure
 ```
