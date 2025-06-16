@@ -52,6 +52,7 @@ https://docs.docker.com/desktop/setup/install/mac-install/
 Windows:
 https://docs.docker.com/desktop/setup/install/windows-install/
 
+### For launch the website
 ```bash
 docker run -it -p 8080:8080 --rm --name dockerize-vuejs-app-1 vuejs-cookbook/dockerize-vuejs-app
 ```
